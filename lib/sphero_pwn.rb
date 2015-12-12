@@ -15,6 +15,9 @@ require 'sphero_pwn/test_channel.rb'
 
 require 'sphero_pwn/asyncs/l1_diagnostics.rb'
 
+require 'sphero_pwn/commands/get_device_mode.rb'
 require 'sphero_pwn/commands/get_versions.rb'
 require 'sphero_pwn/commands/l1_diagnostics.rb'
 require 'sphero_pwn/commands/ping.rb'
+require 'sphero_pwn/commands/set_device_mode.rb'
+

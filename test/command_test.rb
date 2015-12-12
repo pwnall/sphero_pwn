@@ -10,6 +10,16 @@ describe SpheroPwn::Command do
     assert_equal Encoding::BINARY, bytes.encoding
   end
 
+  it 'stringifies a command with data correctly' do
+    set_device_mode = SpheroPwn::Command.new 0x02, 0x42, [0x00]
+    sequence = 0x52
+
+    bytes = set_device_mode.to_bytes sequence
+    assert_equal [0xFF, 0xFF, 0x02, 0x42, 0x52, 0x02, 0x00, 0x67],
+                 bytes.unpack('C*')
+    assert_equal Encoding::BINARY, bytes.encoding
+  end
+
   it 'clears the response bit correctly' do
     ping = SpheroPwn::Command.new 0x00, 0x01, nil
     assert_equal true, ping.expects_response?

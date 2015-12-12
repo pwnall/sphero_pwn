@@ -65,7 +65,8 @@ class SpheroPwn::Session
   # @return {Response, Async} the response read from the channel; can be nil if
   #   no message was received or if the checksum verification failed
   def recv_message
-    return nil if @channel.recv_bytes(1).ord != 0xFF
+    start_of_packet = @channel.recv_bytes 1
+    return nil unless start_of_packet && start_of_packet.ord == 0xFF
 
     packet_type = @channel.recv_bytes 1
     case packet_type.ord
