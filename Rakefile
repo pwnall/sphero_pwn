@@ -18,8 +18,9 @@ Jeweler::Tasks.new do |gem|
   gem.homepage = "http://github.com/pwnall/sphero_pwn"
   gem.license = "MIT"
   gem.summary = %Q{Wrapper for Sphero's bluetooth protocol}
-  gem.description = %Q{TODO: longer description of your gem}
-  gem.email = "costan@gmail.com"
+  gem.description = %Q{This library is currently focused on reverse-engineering
+      the undocumented parts of Sphero}
+  gem.email = "victor@costan.us"
   gem.authors = ["Victor Costan"]
   # dependencies defined in Gemfile
 end
@@ -28,24 +29,11 @@ Jeweler::RubygemsDotOrgTasks.new
 require 'rake/testtask'
 Rake::TestTask.new(:test) do |test|
   test.libs << 'lib' << 'test'
-  test.pattern = 'test/**/test_*.rb'
+  test.pattern = 'test/**/*_test.rb'
   test.verbose = true
-end
-
-desc "Code coverage detail"
-task :simplecov do
-  ENV['COVERAGE'] = "true"
-  Rake::Task['test'].execute
 end
 
 task :default => :test
 
-require 'rdoc/task'
-Rake::RDocTask.new do |rdoc|
-  version = File.exist?('VERSION') ? File.read('VERSION') : ""
-
-  rdoc.rdoc_dir = 'rdoc'
-  rdoc.title = "sphero_pwn #{version}"
-  rdoc.rdoc_files.include('README*')
-  rdoc.rdoc_files.include('lib/**/*.rb')
-end
+require 'yard'
+YARD::Rake::YardocTask.new
