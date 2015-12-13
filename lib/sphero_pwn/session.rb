@@ -66,10 +66,10 @@ class SpheroPwn::Session
   #   no message was received or if the checksum verification failed
   def recv_message
     start_of_packet = @channel.recv_bytes 1
-    return nil unless start_of_packet && start_of_packet.ord == 0xFF
+    return nil if start_of_packet.empty? || start_of_packet.ord != 0xFF
 
     packet_type = @channel.recv_bytes 1
-    return nil unless packet_type
+    return nil if packet_type.empty?
     case packet_type.ord
     when 0xFF
       read_response
@@ -113,7 +113,8 @@ class SpheroPwn::Session
     # early if we don't find it. However, in order to avoid misleading error
     # messages, we don't want to touch anything in the message until we know
     # that the checksum is valid.
-    data_bytes = @channel.recv_bytes(data_length).unpack('C*')
+    return nil unless data = @channel.recv_bytes(data_length)
+    data_bytes = data.unpack 'C*'
     checksum = data_bytes.pop
     unless self.class.valid_checksum?(header_bytes, data_bytes, checksum)
       return nil
@@ -142,7 +143,8 @@ class SpheroPwn::Session
     # messages, we don't want to touch anything in the message until we know
     # that the checksum is valid.
     data_length = (length_msb << 8) | length_lsb
-    data_bytes = @channel.recv_bytes(data_length).unpack('C*')
+    return nil unless data = @channel.recv_bytes(data_length)
+    data_bytes = data.unpack 'C*'
     checksum = data_bytes.pop
     unless self.class.valid_checksum?(header_bytes, data_bytes, checksum)
       return nil
