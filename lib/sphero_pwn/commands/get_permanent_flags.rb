@@ -26,7 +26,7 @@ end
 # The robot's configuration flags that persist across power cycles.
 class SpheroPwn::Commands::GetPermanentFlags::Response < SpheroPwn::Response
   # @return {Hash<Symbol, Boolean>} maps developer-friendly flag names to
-  #   whether the corresponding flags are set
+  #   whether the corresponding bits were set in the flags field
   attr_reader :flags
 
   # @see {SpheroPwn::Response#initialize}
