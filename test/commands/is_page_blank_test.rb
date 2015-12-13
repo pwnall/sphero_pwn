@@ -63,4 +63,3 @@ describe SpheroPwn::Commands::IsPageBlank do
     end
   end
 end
-
