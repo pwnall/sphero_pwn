@@ -1,4 +1,6 @@
-# Asks the robot to send ASCII diagnostic data.
+# Asks the robot for its debugging counters.
+#
+# This command only works when the robot is in user hacking mode.
 class SpheroPwn::Commands::L2Diagnostics < SpheroPwn::Command
   def initialize
     super 0x00, 0x41, nil

@@ -54,4 +54,3 @@ describe SpheroPwn::Commands::SetDeviceMode do
     end
   end
 end
-

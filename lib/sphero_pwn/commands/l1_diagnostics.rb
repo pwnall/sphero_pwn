@@ -13,4 +13,3 @@ end
 # The response to an L1 diagnostics command.
 class SpheroPwn::Commands::L1Diagnostics::Response < SpheroPwn::Response
 end
-

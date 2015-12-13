@@ -15,6 +15,8 @@ require_relative './sphero_pwn/test_channel.rb'
 
 require_relative './sphero_pwn/asyncs/l1_diagnostics.rb'
 
+require_relative './sphero_pwn/commands/boot_main_app.rb'
+require_relative './sphero_pwn/commands/enter_bootloader.rb'
 require_relative './sphero_pwn/commands/get_device_mode.rb'
 require_relative './sphero_pwn/commands/get_versions.rb'
 require_relative './sphero_pwn/commands/l1_diagnostics.rb'

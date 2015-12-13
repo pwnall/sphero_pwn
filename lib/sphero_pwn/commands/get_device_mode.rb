@@ -10,7 +10,7 @@ class SpheroPwn::Commands::GetDeviceMode < SpheroPwn::Command
   end
 end
 
-# The versions of a robot's software stack.
+# The development mode of the robot.
 class SpheroPwn::Commands::GetDeviceMode::Response < SpheroPwn::Response
   # @return {Symbol} the device's mode; can be :normal or :user_hack
   attr_reader :mode
