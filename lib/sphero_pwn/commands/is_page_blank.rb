@@ -21,6 +21,7 @@ end
 class SpheroPwn::Commands::IsPageBlank::Response < SpheroPwn::Response
   # @return {Boolean} true if the flash memory page is blank
   attr_reader :is_blank
+  alias_method :is_blank?, :is_blank
 
   # @see {SpheroPwn::Response#initialize}
   def initialize(code_byte, sequence_byte, data_bytes)

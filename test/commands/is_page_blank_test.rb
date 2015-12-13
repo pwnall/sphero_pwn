@@ -15,6 +15,7 @@ describe SpheroPwn::Commands::IsPageBlank do
 
     assert_equal :ok, response.code
     assert_equal true, response.is_blank
+    assert_equal true, response.is_blank?
   end
 
   it 'parses a no response correctly' do
@@ -23,6 +24,7 @@ describe SpheroPwn::Commands::IsPageBlank do
 
     assert_equal :ok, response.code
     assert_equal false, response.is_blank
+    assert_equal false, response.is_blank?
   end
 
   it 'does not crash when parsing an error response' do
@@ -31,6 +33,7 @@ describe SpheroPwn::Commands::IsPageBlank do
 
     assert_equal :bad_page, response.code
     assert_equal nil, response.is_blank
+    assert_equal nil, response.is_blank?
   end
 
   describe 'when sent to the robot' do

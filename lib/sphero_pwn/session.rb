@@ -69,11 +69,14 @@ class SpheroPwn::Session
     return nil unless start_of_packet && start_of_packet.ord == 0xFF
 
     packet_type = @channel.recv_bytes 1
+    return nil unless packet_type
     case packet_type.ord
     when 0xFF
       read_response
     when 0xFE
       read_async_message
+    else
+      nil
     end
   end
 
@@ -104,6 +107,7 @@ class SpheroPwn::Session
   def read_response
     header_bytes = @channel.recv_bytes(3).unpack('C*')
     response_code, sequence, data_length = *header_bytes
+    return nil unless data_length
 
     # It may seem that it'd be better to look up the sequence number and bail
     # early if we don't find it. However, in order to avoid misleading error
@@ -131,12 +135,13 @@ class SpheroPwn::Session
   def read_async_message
     header_bytes = @channel.recv_bytes(3).unpack('C*')
     class_id, length_msb, length_lsb  = *header_bytes
-    data_length = (length_msb << 8) | length_lsb
+    return nil unless length_msb && length_lsb
 
     # It may seem that it'd be better to look up the sequence number and bail
     # early if we don't find it. However, in order to avoid misleading error
     # messages, we don't want to touch anything in the message until we know
     # that the checksum is valid.
+    data_length = (length_msb << 8) | length_lsb
     data_bytes = @channel.recv_bytes(data_length).unpack('C*')
     checksum = data_bytes.pop
     unless self.class.valid_checksum?(header_bytes, data_bytes, checksum)
