@@ -21,16 +21,18 @@ class SpheroPwn::Commands::GetVersions::Response < SpheroPwn::Response
     super
 
     @versions = {}
-    response_version = data_bytes[0]
-    if response_version >= 1
-      @versions.merge!  model: data_bytes[1], hardware: data_bytes[2],
-        sphero_app: { version: data_bytes[3], revision: data_bytes[4] },
-        bootloader: self.class.parse_packed_nibble(data_bytes[5]),
-        basic: self.class.parse_packed_nibble(data_bytes[6]),
-        macros: self.class.parse_packed_nibble(data_bytes[7])
-    end
-    if response_version >= 2
-      @versions.merge!  api: { major: data_bytes[8], minor: data_bytes[9] }
+    if code == :ok
+      response_version = data_bytes[0]
+      if response_version >= 1
+        @versions.merge!  model: data_bytes[1], hardware: data_bytes[2],
+          sphero_app: { version: data_bytes[3], revision: data_bytes[4] },
+          bootloader: self.class.parse_packed_nibble(data_bytes[5]),
+          basic: self.class.parse_packed_nibble(data_bytes[6]),
+          macros: self.class.parse_packed_nibble(data_bytes[7])
+      end
+      if response_version >= 2
+        @versions.merge!  api: { major: data_bytes[8], minor: data_bytes[9] }
+      end
     end
   end
 

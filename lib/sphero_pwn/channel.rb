@@ -10,8 +10,10 @@ class SpheroPwn::Channel
   #
   # @param {String} rfconn_path the path to the device file connecting to the
   #   robot's Bluetooth RFCONN service
-  def initialize(rfconn_path)
-    give_up_at = Time.now + 15
+  # @param {Number} timeout the number of seconds to retry connecting when
+  #   getting EBUSY
+  def initialize(rfconn_path, timeout = 15)
+    give_up_at = Time.now + timeout
     @port = nil
     while @port.nil?
       begin

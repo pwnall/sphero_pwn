@@ -8,7 +8,7 @@ class SpheroPwn::Commands::SetDeviceMode < SpheroPwn::Command
     when :user_hack
       0x01
     else
-      raise ArgumentError, "Unimplemented mode #{mode}"
+      raise ArgumentError, "Unimplemented mode #{mode.inspect}"
     end
 
     super 0x02, 0x42, [mode_byte]

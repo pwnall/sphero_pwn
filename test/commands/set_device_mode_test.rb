@@ -17,13 +17,6 @@ describe SpheroPwn::Commands::SetDeviceMode do
                  set_device_mode.to_bytes(sequence).unpack('C*')
   end
 
-  it 'parses a normal mode response correctly' do
-    response = SpheroPwn::Commands::GetDeviceMode::Response.new 0x01, 0x00,
-        [0x00]
-
-    assert_equal :normal, response.mode
-  end
-
   describe 'when sent to the robot' do
     before do
       @session = new_test_session :set_device_mode

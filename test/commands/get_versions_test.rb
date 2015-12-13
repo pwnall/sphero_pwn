@@ -2,8 +2,10 @@ require_relative '../helper.rb'
 
 describe SpheroPwn::Commands::GetVersions do
   it 'parses a v1 response record correctly' do
-    response = SpheroPwn::Commands::GetVersions::Response.new 0x01, 0x00,
+    response = SpheroPwn::Commands::GetVersions::Response.new 0x00, 0x00,
         [0x02, 0x03, 0x01, 0xaa, 0xbb, 0x51, 0x67, 0x89]
+
+    assert_equal :ok, response.code
 
     assert_equal 3, response.versions[:model]
     assert_equal 1, response.versions[:hardware]
@@ -12,6 +14,13 @@ describe SpheroPwn::Commands::GetVersions do
     assert_equal({ major: 5, minor: 1}, response.versions[:bootloader])
     assert_equal({ major: 6, minor: 7}, response.versions[:basic])
     assert_equal({ major: 8, minor: 9}, response.versions[:macros])
+  end
+
+  it 'does not crash when receiving an error' do
+    response = SpheroPwn::Commands::GetVersions::Response.new 0x05, 0x00, []
+
+    assert_equal :unsupported, response.code
+    refute_nil response.versions
   end
 
   describe 'when sent to the robot' do

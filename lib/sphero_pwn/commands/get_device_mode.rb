@@ -19,13 +19,17 @@ class SpheroPwn::Commands::GetDeviceMode::Response < SpheroPwn::Response
   def initialize(code_byte, sequence_byte, data_bytes)
     super
 
-    @mode = case data_bytes[0]
-    when 0x00
-      :normal
-    when 0x01
-      :user_hack
+    if code == :ok
+      @mode = case data_bytes[0]
+      when 0x00
+        :normal
+      when 0x01
+        :user_hack
+      else
+        :unknown
+      end
     else
-      :unknown
+      @mode = :error
     end
   end
 end
