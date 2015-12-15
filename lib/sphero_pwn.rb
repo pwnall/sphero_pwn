@@ -13,11 +13,13 @@ require_relative './sphero_pwn/response.rb'
 require_relative './sphero_pwn/session.rb'
 require_relative './sphero_pwn/test_channel.rb'
 
+require_relative './sphero_pwn/asyncs/flash_block.rb'
 require_relative './sphero_pwn/asyncs/l1_diagnostics.rb'
 
 require_relative './sphero_pwn/commands/boot_main_app.rb'
 require_relative './sphero_pwn/commands/enter_bootloader.rb'
 require_relative './sphero_pwn/commands/get_device_mode.rb'
+require_relative './sphero_pwn/commands/get_flash_block.rb'
 require_relative './sphero_pwn/commands/get_permanent_flags.rb'
 require_relative './sphero_pwn/commands/get_versions.rb'
 require_relative './sphero_pwn/commands/is_page_blank.rb'

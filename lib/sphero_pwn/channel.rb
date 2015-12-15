@@ -10,7 +10,9 @@ class SpheroPwn::Channel
   #
   # @param {String} rfconn_path the path to the device file connecting to the
   #   robot's Bluetooth RFCONN service
-  # @param {Hash} options
+  # @param {Hash} options the options below
+  # @option {Number} connect_timeout retry for this number of seconds when the
+  #   connection gets refused with EBUSY
   def initialize(rfconn_path, options = {})
     @connect_timeout = options[:connect_timeout] || 15
     @read_timeout = options[:read_timeout] || 30
